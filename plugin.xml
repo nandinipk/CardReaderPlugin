@@ -42,13 +42,20 @@
                 <param name="android-package" value="com.egood.cordova.plugins.magtekudynamo.MagTekUDynamoPlugin" />
             </feature>
         </config-file>
-        
+        <edit-config file="AndroidManifest.xml" target="/manifest/application/service[@android:name='com.magtek.mobile.android.mtlib.MTAudioService']" mode="overwrite">
+            <service android:name="com.magtek.mobile.android.mtlib.MTAudioService" android:enabled="true"/>
+        </edit-config>
+        <edit-config file="AndroidManifest.xml" target="/manifiest/uses-permissions[@android:name='android.permission.RECORD_AUDIO']" mode="overwrite">
+            <uses-permission android:name="android.permission.RECORD_AUDIO" />
+        </edit-config>
+        <edit-config file="AndroidManifest.xml" target="/manifiest/uses-permissions[@android:name='android.permission.MODIFY_AUDIO_SETTINGS']" mode="overwrite">
+            <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+        </edit-config>
         <js-module src="www/js/magtek_udynamo.js" name="MagTek">
             <clobbers target="cordova.plugins.MagTek" />
         </js-module>
 
-        <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/magtek-scra.jar" target-dir="libs" />
-        <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/ksoap2-android-assembly-2.6.5-jar-with-dependencies.jar" target-dir="libs" />
+        <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/mtscra.jar" target-dir="libs" />
         <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/MagTekUDynamoPlugin.java" target-dir="src/com/egood/cordova/plugins/magtekudynamo" />
     </platform>
 </plugin>
