@@ -1,5 +1,5 @@
 #import "MagTekUDynamoPlugin.h"
-
+#import "DUKPT.h"
 #import "MTSCRA.h"
 
 @interface MagTekUDynamoPlugin ()
@@ -179,6 +179,10 @@
     
     if(self.mMagTek != nil)
     {
+        DUKPT* d = [[DUKPT alloc]initWithBDK:@"0123456789ABCDEFFEDCBA9876543210" KSN:[self.mMagTek getKSN]];
+        NSString* track2Data = [d decrypt:[self.mMagTek getTrack2]];
+        NSLog(track2Data);
+        [data setObject:track2Data forKey:@"Card.DecryptedTrack2"];
         if([self.mMagTek getDeviceType] == MAGTEKAUDIOREADER)
         {
             [data setObject:[self.mMagTek getResponseType] forKey:@"Response.Type"];

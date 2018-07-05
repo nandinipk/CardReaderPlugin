@@ -22,6 +22,8 @@
             <clobbers target="cordova.plugins.MagTek" />
         </js-module>
 
+        <header-file src="src/ios/DUKPT.h" />
+        <source-file src="src/ios/DUKPT.m" />
         <header-file src="src/ios/MagTekUDynamoPlugin.h" />
         <source-file src="src/ios/MagTekUDynamoPlugin.m" />
         
@@ -54,6 +56,7 @@
             <clobbers target="cordova.plugins.MagTek" />
         </js-module>
         <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/mtscra.jar" target-dir="libs" />
+        <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/DukptDecrypt.java" target-dir="src/com/egood/cordova/plugins/magtekudynamo" />
         <source-file src="src/android/com/egood/cordova/plugins/magtekudynamo/MagTekUDynamoPlugin.java" target-dir="src/com/egood/cordova/plugins/magtekudynamo" />
     </platform>
 </plugin>

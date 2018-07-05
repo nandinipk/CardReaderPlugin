@@ -47,6 +47,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Handler.Callback;
 
+import DukptDecrypt;
 public class MagTekUDynamoPlugin extends CordovaPlugin {
     private final static String TAG = MagTekUDynamoPlugin.class.getSimpleName();
     final HeadSetBroadCastReceiver m_headsetReceiver = new HeadSetBroadCastReceiver();
@@ -354,6 +355,9 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 	private void sendCardData() throws JSONException {
 		JSONObject response = new JSONObject();
 
+        DukptDecrypt d = DukptDecrypt();
+        String track2Data = d.decrypt(m_scra.getKSN(), '0123456789ABCDEFFEDCBA9876543210', m_scra.getTrack2());
+        response.put("Card.DecryptedTrack2", track2Data);
 		response.put("Response.Type", m_scra.getResponseType());
 		response.put("Track.Status", m_scra.getTrackDecodeStatus());
 		response.put("Card.Status", m_scra.getCardStatus());
