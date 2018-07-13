@@ -356,7 +356,7 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 		JSONObject response = new JSONObject();
 
         DukptDecrypt d = DukptDecrypt();
-        String track2Data = d.decrypt(m_scra.getKSN(), '0123456789ABCDEFFEDCBA9876543210', m_scra.getTrack2());
+        String track2Data = d.decrypt(m_scra.getKSN(), "0123456789ABCDEFFEDCBA9876543210", m_scra.getTrack2());
         response.put("Card.DecryptedTrack2", track2Data);
 		response.put("Response.Type", m_scra.getResponseType());
 		response.put("Track.Status", m_scra.getTrackDecodeStatus());
