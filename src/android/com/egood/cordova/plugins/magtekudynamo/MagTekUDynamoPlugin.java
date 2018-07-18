@@ -47,7 +47,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Handler.Callback;
 
-import com.egood.cordova.plugins.magtekudynamo.DukptDecrypt;
+//import com.egood.cordova.plugins.magtekudynamo.DukptDecrypt;
 
 public class MagTekUDynamoPlugin extends CordovaPlugin {
     private final static String TAG = MagTekUDynamoPlugin.class.getSimpleName();
@@ -358,13 +358,21 @@ public class MagTekUDynamoPlugin extends CordovaPlugin {
 
         //DukptDecrypt d = DukptDecrypt();
         String track2Data = "";
+        byte[] bdk = Dukpt.toByteArray("0123456789ABCDEFFEDCBA9876543210");
+        byte[] ksn = Dukpt.toByteArray(m_scra.getKSN());
+        byte[] data = Dukpt.toByteArray(m_scra.getTrack2());
         try
         {
-            track2Data = DukptDecrypt.decrypt(m_scra.getKSN(), "0123456789ABCDEFFEDCBA9876543210", m_scra.getTrack2());
+            //track2Data = DukptDecrypt.decrypt(m_scra.getKSN(), "0123456789ABCDEFFEDCBA9876543210", m_scra.getTrack2());
+            byte[] key = Dukpt.computeKey(bdk, ksn);
+            data = Dukpt.decryptTripleDes(key, data);
+            String dataOutput = new String(data, "UTF-8");
+            response.put("Card.DecryptedTrack2", dataOutput);
         }catch (Exception ex)
         {
+            m_eventListenerCallback.error("That card was not swiped properly. Please try again.");
         }
-        response.put("Card.DecryptedTrack2", track2Data);
+        
 		response.put("Response.Type", m_scra.getResponseType());
 		response.put("Track.Status", m_scra.getTrackDecodeStatus());
 		response.put("Card.Status", m_scra.getCardStatus());

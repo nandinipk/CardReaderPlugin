@@ -1,20 +1,18 @@
 
 
 window.MagtekCardReader = (function () {
-    function Dome (els) {
          
-    }
      
     var cardReader = {
         openDevice : function () {
-          console.log('dsadasdsadsa')
+          console.log('Open device')
           window.cordova.plugins.MagTek.openDevice(function(device) {
             console.log('Open device Success');
           }, function(error) {
               console.log('Open device Error');
           });
         },
-        startScan: function() {
+        startScan: function(cb) {
           window.cordova.plugins.MagTek.openDevice(function(device) {
             window.cordova.plugins.MagTek.listenForEvents(function(card_data) {
 
@@ -34,20 +32,23 @@ window.MagtekCardReader = (function () {
             cardData.cardNumber = track2Data;
 
             console.log('Card Data', JSON.stringify(cardData));
+            if (cb) {
+              cb(cardData);
+            }
 
           }, ['TRANS_EVENT_ERROR', 'TRANS_EVENT_OK', 'TRANS_EVENT_START'], function(error) {
               console.log('Error occurred while listening to events')
           });
-              console.log('Open device Success');
+              //console.log('Open device Success');
           }, function(error) {
-              console.log('Open device Error');
+              alert('Error in connection with Card Read, reconnect and try again');
           });
         },
         closeDevice: function() {
           window.cordova.plugins.MagTek.closeDevice(function(succes){
-            console.log('Close device Success');
+            //console.log('Close device Success');
           }, function(error) {
-            console.log('Close device Error');
+            //console.log('Close device Error');
           });
         }
     };

@@ -57,12 +57,15 @@
         <script type="text/javascript" src="js/MagtekCardReader.js"></script>
 		<script>
 			function start(){
-               console.log('dfdssdfsdf', window.MagtekCardReader);
-               window.MagtekCardReader.startScan();
+               window.MagtekCardReader.startScan(function(cardData) {
+                console.log('Card Data', cardData);
+               });
 				
 			}
 			function closeDevice(){
-				window.MagtekCardReader.closeDevice();
+				window.MagtekCardReader.closeDevice(function(cardData) {
+                console.log('Closed device');
+               });
 			}
             
 		</script>
